@@ -16,11 +16,11 @@ export function useSignalListener(signal: Deno.Signal, handler: () => void) {
 }
 
 export const SIGNALS = [{
-  type: "SIGALRM",
   code: 14,
+  type: "SIGALRM",
 }, {
-  type: "SIGINT",
   code: 130,
+  type: "SIGINT",
 }] as const;
 
 export const EVENTS = ["error", "unhandledrejection", "unload"];
