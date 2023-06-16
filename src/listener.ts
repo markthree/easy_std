@@ -16,8 +16,8 @@ export function useSignalListener(signal: Deno.Signal, handler: () => void) {
 }
 
 export const SIGNALS = [{
-  code: 14,
-  type: "SIGALRM",
+  code: 21,
+  type: "SIGBREAK",
 }, {
   code: 130,
   type: "SIGINT",
