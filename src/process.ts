@@ -1,5 +1,12 @@
 import type { AnyFunction } from "./type.ts";
 import { which } from "./deps.ts";
+import {
+  EVENTS,
+  SIGNALS,
+  useEventListener,
+  useSignalListener,
+} from "./listener.ts";
+import { invoke } from "./fn.ts";
 
 export async function execa(cmd: string[], options: Deno.CommandOptions = {}) {
   const command = await which(cmd.shift()!);
@@ -12,47 +19,47 @@ export async function execa(cmd: string[], options: Deno.CommandOptions = {}) {
     ...options,
   });
 
-  let resolved = false;
   const process = commander.spawn();
-  const ensureCleanEvents = gracefulShutdown(() => {
-    if (!resolved) {
-      process.kill();
-      resolved = true;
-    }
+
+  const stopShutdown = gracefulShutdown(() => {
+    process.kill();
   });
-  return process.status.finally(() => {
-    resolved = true;
-    ensureCleanEvents();
-  });
+
+  return process.status.finally(stopShutdown);
 }
 
 export function gracefulShutdown(
   shutdown: AnyFunction,
-  options: AddEventListenerOptions = {
-    once: true,
-  },
 ) {
-  async function exitWithShoutdown() {
+  const stopEventListners = EVENTS.map((type) => {
+    return useEventListener(type, onceShutdown);
+  });
+
+  const stopSignalListeners = SIGNALS.map((SIGNAL) => {
+    return useSignalListener(
+      SIGNAL.type,
+      createOnceShutdownWithExit(SIGNAL.code),
+    );
+  });
+
+  async function onceShutdown() {
     await shutdown();
-    if (options.once) {
-      Deno.addSignalListener("SIGINT", exitWithShoutdown);
-    }
-    Deno.exit(130);
+    stop();
   }
 
-  // Synchronization error
-  globalThis.addEventListener("error", shutdown, options);
-  // Main process exit
-  globalThis.addEventListener("unload", shutdown, options);
-  // Asynchronous error
-  globalThis.addEventListener("unhandledrejection", shutdown, options);
+  function createOnceShutdownWithExit(code?: number) {
+    return async function () {
+      await onceShutdown();
+      Deno.exit(code);
+    };
+  }
 
-  Deno.addSignalListener("SIGINT", exitWithShoutdown);
+  function stop() {
+    stopEventListners.forEach(invoke);
+    stopSignalListeners.forEach(invoke);
+  }
 
-  return function ensureCleanEvents() {
-    globalThis.removeEventListener("error", shutdown);
-    globalThis.removeEventListener("unload", shutdown);
-    globalThis.removeEventListener("unhandledrejection", shutdown);
-    Deno.removeSignalListener("SIGINT", exitWithShoutdown);
-  };
+  return stop;
 }
+
+// TODO {DenoFmt}
