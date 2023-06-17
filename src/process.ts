@@ -62,4 +62,10 @@ export function gracefulShutdown(
   return stop;
 }
 
-// TODO {DenoFmt}
+export function denoFmt(files: string[]) {
+  const args = ["deno", "fmt"];
+  if (files?.length > 0) {
+    args.push(...files);
+  }
+  return execa(args);
+}
