@@ -1,4 +1,3 @@
-// TODO note
 // deno run --allow-read --allow-write --allow-env --allow-run https://deno.land/x/easy_std/scripts/release.ts
 import { findFile } from "../src/fs.ts";
 import { execa } from "../src/process.ts";

@@ -8,6 +8,20 @@ import {
 } from "./listener.ts";
 import { invoke } from "./fn.ts";
 
+/**
+ * Safe execution of sub-processes
+ * Automatically kill child processes when the master process exits
+ * requires the `--allow-run` and `--allow-env` flag.
+ * @param cmd
+ * @param options
+ * @returns
+ * @example
+ * ```ts
+ * import { execa } from "https://deno.land/x/easy_std@version/process.ts";
+ *
+ * await execa(['npm', 'install', 'koa']) // Safe invocation of child processes
+ * ```
+ */
 export async function execa(cmd: string[], options: Deno.CommandOptions = {}) {
   const command = await which(cmd.shift()!);
 
@@ -28,6 +42,17 @@ export async function execa(cmd: string[], options: Deno.CommandOptions = {}) {
   return process.status.finally(stopShutdown);
 }
 
+/**
+ * The incoming function will be executed regardless of the reason for the process to exit
+ * @param shutdown
+ * @returns
+ * @example
+ * ```ts
+ * import { gracefulShutdown } from "https://deno.land/x/easy_std@version/process.ts";
+ *
+ * gracefulShutdown(() => console.log("good bye")) // When the process exits, it prints
+ * ```
+ */
 export function gracefulShutdown(
   shutdown: AnyFunction,
 ) {
@@ -62,6 +87,12 @@ export function gracefulShutdown(
   return stop;
 }
 
+/**
+ * call the deno subprocess to format the file
+ * requires the `--allow-run` and `--allow-env` flag.
+ * @param files
+ * @returns
+ */
 export function denoFmt(files: string[]) {
   const args = ["deno", "fmt"];
   if (files?.length > 0) {
