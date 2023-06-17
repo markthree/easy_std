@@ -4,6 +4,8 @@
     "release": "deno run --allow-read --allow-write --allow-env --allow-run scripts/release.ts"
   },
   "lint": {
-    "exclude": ["no-explicit-any"]
+    "rules": {
+      "exclude": ["no-explicit-any"]
+    }
   }
 }
