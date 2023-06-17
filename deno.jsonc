@@ -1,7 +1,7 @@
 {
   "tasks": {
     "start": "deno run mod.ts",
-    "release": "deno run -A scripts/release.ts"
+    "release": "deno run --allow-read --allow-write --allow-env --allow-run scripts/release.ts"
   },
   "lint": {
     "exclude": ["no-explicit-any"]
