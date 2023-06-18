@@ -1,5 +1,5 @@
 import type { AnyFunction } from "./type.ts";
-import { which } from "./deps.ts";
+import { which } from "https://deno.land/x/which@0.3.0/mod.ts";
 import {
   EVENTS,
   SIGNALS,
