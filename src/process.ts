@@ -67,7 +67,10 @@ export function gracefulShutdown(
     );
   });
 
-  async function onceShutdown() {
+  async function onceShutdown(evt?: Event) {
+    if (evt instanceof Event && evt?.preventDefault) {
+      evt.preventDefault();
+    }
     await shutdown();
     stop();
   }
