@@ -53,6 +53,6 @@ export function useEventListener(...args: Parameters<typeof addEventListener>) {
 export function useSignalListener(signal: Deno.Signal, handler: () => void) {
   Deno.addSignalListener(signal, handler);
   return function stop() {
-    Deno.addSignalListener(signal, handler);
+    Deno.removeSignalListener(signal, handler);
   };
 }

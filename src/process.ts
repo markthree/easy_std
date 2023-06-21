@@ -42,6 +42,8 @@ export async function execa(cmd: string[], options: Deno.CommandOptions = {}) {
   return process.status.finally(stopShutdown);
 }
 
+export let gracefulShutdownCounter = 0;
+
 /**
  * The incoming function will be executed regardless of the reason for the process to exit
  * @param shutdown
@@ -68,17 +70,21 @@ export function gracefulShutdown(
   });
 
   async function onceShutdown(evt?: Event) {
+    stop();
+    gracefulShutdownCounter++;
     if (evt instanceof Event && evt?.preventDefault) {
       evt.preventDefault();
     }
     await shutdown();
-    stop();
+    gracefulShutdownCounter--;
   }
 
   function createOnceShutdownWithExit(code?: number) {
     return async function () {
       await onceShutdown();
-      Deno.exit(code);
+      if (gracefulShutdownCounter === 0) {
+        Deno.exit(code);
+      }
     };
   }
 
