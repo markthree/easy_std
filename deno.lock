@@ -5,6 +5,12 @@
     "https://deno.land/std@0.192.0/path/_constants.ts": "e49961f6f4f48039c0dfed3c3f93e963ca3d92791c9d478ac5b43183413136e0",
     "https://deno.land/std@0.192.0/path/_util.ts": "d7abb1e0dea065f427b89156e28cdeb32b045870acdf865833ba808a73b576d0",
     "https://deno.land/std@0.192.0/path/posix.ts": "8b7c67ac338714b30c816079303d0285dd24af6b284f7ad63da5b27372a2c94d",
+    "https://deno.land/std@0.192.0/semver/_shared.ts": "7101b4118e96b8c7b600d54a8455d93afd96eaf43a69a3bff34513890ac264ae",
+    "https://deno.land/std@0.192.0/semver/constants.ts": "bb0c7652c433c7ec1dad5bf18c7e7e1557efe9ddfd5e70aa6305153e76dc318c",
+    "https://deno.land/std@0.192.0/semver/is_semver.ts": "b21011d2afea366576bd283705df7515e8c85f5d03015aca83bc5a721f0cf344",
+    "https://deno.land/std@0.192.0/semver/parse.ts": "190dab1b5231da1fa6ec40567f58550209e7304dcb655fd8ae46eb7c2966a82b",
+    "https://deno.land/std@0.192.0/semver/try_parse.ts": "fc7eeafc18686563b0cc35b518eda57690e513e634527a0ff48c600ba7798ce4",
+    "https://deno.land/std@0.192.0/semver/types.ts": "d44f442c2f27dd89bd6695b369e310b80549746f03c38f241fe28a83b33dd429",
     "https://deno.land/x/which@0.3.0/mod.ts": "3e10d07953c14e4ddc809742a3447cef14202cdfe9be6678a1dfc8769c4487e6"
   }
 }
