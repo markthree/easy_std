@@ -1,5 +1,5 @@
 import { exists } from "https://deno.land/std@0.192.0/fs/exists.ts";
-import { dirname, join } from "https://deno.land/std@0.192.0/path/posix.ts";
+import { join } from "https://deno.land/std@0.192.0/path/posix.ts";
 
 /**
  * windows path separator
@@ -33,10 +33,10 @@ export function slash(path: string) {
  * ```
  */
 export function createUpBases(root: string = Deno.cwd()) {
-  const base = dirname(slash(root));
+  const base = slash(root);
   return base.split("/").reduceRight((bases: string[], b) => {
     const lastBase = bases.at(-1);
-    if (lastBase === b) {
+    if (b === lastBase) {
       return bases;
     }
     bases.push(lastBase!.replace(`/${b}`, ""));
