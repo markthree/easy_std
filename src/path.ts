@@ -33,14 +33,15 @@ export function slash(path: string) {
  * ```
  */
 export function createUpBases(root: string = Deno.cwd()) {
-  const base = dirname(root);
-  const paths = [base];
-  let total = base.split("/").length - 1;
-  while (total) {
-    paths.push(base);
-    total--;
-  }
-  return paths;
+  const base = dirname(slash(root));
+  return base.split("/").reduceRight((bases: string[], b) => {
+    const lastBase = bases.at(-1);
+    if (lastBase === b) {
+      return bases;
+    }
+    bases.push(lastBase!.replace(`/${b}`, ""));
+    return bases;
+  }, [base]);
 }
 
 /**
