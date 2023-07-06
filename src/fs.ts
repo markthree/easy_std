@@ -1,4 +1,4 @@
-import { exists } from "https://deno.land/std@0.192.0/fs/exists.ts";
+import { exists } from "https://deno.land/std@0.193.0/fs/exists.ts";
 
 /**
  * Find possible files
