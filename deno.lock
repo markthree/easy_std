@@ -8,6 +8,13 @@
     "https://deno.land/std@0.192.0/semver/parse.ts": "190dab1b5231da1fa6ec40567f58550209e7304dcb655fd8ae46eb7c2966a82b",
     "https://deno.land/std@0.192.0/semver/try_parse.ts": "fc7eeafc18686563b0cc35b518eda57690e513e634527a0ff48c600ba7798ce4",
     "https://deno.land/std@0.192.0/semver/types.ts": "d44f442c2f27dd89bd6695b369e310b80549746f03c38f241fe28a83b33dd429",
+    "https://deno.land/std@0.193.0/fs/exists.ts": "29c26bca8584a22876be7cb8844f1b6c8fc35e9af514576b78f5c6884d7ed02d",
+    "https://deno.land/std@0.193.0/semver/_shared.ts": "8547ccf91b36c30fb2a8a17d7081df13f4ae694c4aa44c39799eba69ad0dcb23",
+    "https://deno.land/std@0.193.0/semver/constants.ts": "bb0c7652c433c7ec1dad5bf18c7e7e1557efe9ddfd5e70aa6305153e76dc318c",
+    "https://deno.land/std@0.193.0/semver/is_semver.ts": "0257f596d8ee33796bd2e46347e0c31030e55b3719bc72fe5258a1e9f9c7e227",
+    "https://deno.land/std@0.193.0/semver/parse.ts": "190dab1b5231da1fa6ec40567f58550209e7304dcb655fd8ae46eb7c2966a82b",
+    "https://deno.land/std@0.193.0/semver/try_parse.ts": "fc7eeafc18686563b0cc35b518eda57690e513e634527a0ff48c600ba7798ce4",
+    "https://deno.land/std@0.193.0/semver/types.ts": "d44f442c2f27dd89bd6695b369e310b80549746f03c38f241fe28a83b33dd429",
     "https://deno.land/x/which@0.3.0/mod.ts": "3e10d07953c14e4ddc809742a3447cef14202cdfe9be6678a1dfc8769c4487e6"
   }
 }
