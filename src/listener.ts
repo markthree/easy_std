@@ -12,7 +12,16 @@ export const SIGNALS = [{
 /**
  * Global event types, currently only error and unload
  */
-export const EVENTS = ["error", "unhandledrejection", "beforeunload", "unload"];
+export const EVENTS = [
+  "error",
+  "unhandledrejection",
+  "beforeunload",
+  "unload",
+] as const;
+
+export type EVENT_TYPE = (typeof EVENTS)[number];
+
+export type SIGNAL_TYPE = (typeof SIGNALS)[number]["type"];
 
 /**
  * use global event listener

@@ -1,12 +1,14 @@
-import type { AnyFunction } from "./type.ts";
 import { which } from "https://deno.land/x/which@0.3.0/mod.ts";
+
+import { invoke } from "./fn.ts";
 import {
+  type EVENT_TYPE,
   EVENTS,
+  type SIGNAL_TYPE,
   SIGNALS,
   useEventListener,
   useSignalListener,
 } from "./listener.ts";
-import { invoke } from "./fn.ts";
 
 /**
  * Safe execution of sub-processes
@@ -35,8 +37,9 @@ export async function execa(cmd: string[], options: Deno.CommandOptions = {}) {
 
   const process = commander.spawn();
 
-  const stopShutdown = gracefulShutdown(() => {
-    process.kill();
+  const stopShutdown = gracefulShutdown((type) => {
+    const IS_SIGNAL = SIGNALS.some((s) => s.type === type);
+    process.kill(IS_SIGNAL ? type as SIGNAL_TYPE : undefined);
   });
 
   return process.status.finally(stopShutdown);
@@ -56,37 +59,34 @@ export let gracefulShutdownCounter = 0;
  * ```
  */
 export function gracefulShutdown(
-  shutdown: AnyFunction,
+  shutdown: (type: EVENT_TYPE | SIGNAL_TYPE) => void,
 ) {
   const stopEventListners = EVENTS.map((type) => {
-    return useEventListener(type, onceShutdown);
+    return useEventListener(type, async function (evt: Event) {
+      stop();
+      gracefulShutdownCounter++;
+      if (evt instanceof Event && evt?.preventDefault) {
+        evt.preventDefault();
+      }
+      await shutdown(type);
+      gracefulShutdownCounter--;
+    });
   });
 
   const stopSignalListeners = SIGNALS.map((SIGNAL) => {
     return useSignalListener(
       SIGNAL.type,
-      createOnceShutdownWithExit(SIGNAL.code),
+      async function () {
+        stop();
+        gracefulShutdownCounter++;
+        await shutdown(SIGNAL.type);
+        gracefulShutdownCounter--;
+        if (gracefulShutdownCounter === 0) {
+          Deno.exit(SIGNAL.code);
+        }
+      },
     );
   });
-
-  async function onceShutdown(evt?: Event) {
-    stop();
-    gracefulShutdownCounter++;
-    if (evt instanceof Event && evt?.preventDefault) {
-      evt.preventDefault();
-    }
-    await shutdown();
-    gracefulShutdownCounter--;
-  }
-
-  function createOnceShutdownWithExit(code?: number) {
-    return async function () {
-      await onceShutdown();
-      if (gracefulShutdownCounter === 0) {
-        Deno.exit(code);
-      }
-    };
-  }
 
   function stop() {
     stopEventListners.forEach(invoke);
