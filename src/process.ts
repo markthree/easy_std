@@ -37,9 +37,8 @@ export async function execa(cmd: string[], options: Deno.CommandOptions = {}) {
 
   const process = commander.spawn();
 
-  const stopShutdown = gracefulShutdown((type) => {
-    const IS_SIGNAL = SIGNALS.some((s) => s.type === type);
-    process.kill(IS_SIGNAL ? type as SIGNAL_TYPE : undefined);
+  const stopShutdown = gracefulShutdown(() => {
+    process.kill();
   });
 
   return process.status.finally(stopShutdown);
