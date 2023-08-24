@@ -17,7 +17,6 @@ export function invoke<T>(fn: () => T): T {
   return fn();
 }
 
-// TODO Cache results after the first call
 /**
  * Any function will only be called once
  * @param fn
@@ -38,10 +37,16 @@ export function invoke<T>(fn: () => T): T {
  */
 export function createOnce<T extends AnyFunction>(fn: T) {
   let resolved = false;
-  return function once(this: ThisType<T>, ...rest: Parameters<T>) {
+  let result: unknown;
+  return function once(
+    this: ThisType<T>,
+    ...rest: Parameters<T>
+  ): ReturnType<T> {
     if (!resolved) {
-      return fn.call(this, rest);
+      resolved = true;
+      return result = fn.call(this, rest);
     }
-    resolved = true;
+
+    return result as ReturnType<T>;
   };
 }
