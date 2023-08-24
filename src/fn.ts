@@ -23,19 +23,19 @@ export function invoke<T>(fn: () => T): T {
  * @returns
  * @example
  * ```ts
- * import { createOnce } from "https://deno.land/x/easy_std@version/fn.ts"
+ * import { useOnce } from "https://deno.land/x/easy_std@version/fn.ts"
  *
  * let foo = 0
  *
- * const countOnce = createOnce(() => foo += 1)
+ * const once = useOnce(() => foo += 1)
  *
- * countOnce()
- * countOnce()
+ * once()
+ * once()
  *
  * foo // 1
  * ```
  */
-export function createOnce<T extends AnyFunction>(fn: T) {
+export function useOnce<T extends AnyFunction>(fn: T) {
   let resolved = false;
   let result: unknown;
   return function once(
@@ -48,5 +48,32 @@ export function createOnce<T extends AnyFunction>(fn: T) {
     }
 
     return result as ReturnType<T>;
+  };
+}
+
+/**
+ * Any function will only be called once
+ * @param count
+ * @returns
+ * @example
+ * ```ts
+ * import { useCount } from "https://deno.land/x/easy_std@version/fn.ts"
+ *
+ * const count = useCount()
+ *
+ * count() // 0
+ * count() // 1
+ * count() // 2
+ *
+ * count(100) // 100
+ * ```
+ */
+export function useCount(count = 0) {
+  return function (newCount?: number) {
+    if (newCount !== undefined) {
+      count = newCount;
+      return count;
+    }
+    return count++;
   };
 }
