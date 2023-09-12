@@ -1,9 +1,9 @@
 // deno run --allow-read --allow-write --allow-env --allow-run https://deno.land/x/easy_std/scripts/release.ts
 import { findFile } from "../src/fs.ts";
 import { execa } from "../src/process.ts";
-import { exists } from "https://deno.land/std@0.199.0/fs/exists.ts";
-import { isSemVer } from "https://deno.land/std@0.199.0/semver/is_semver.ts";
-import { tryParse } from "https://deno.land/std@0.199.0/semver/try_parse.ts";
+import { exists } from "https://deno.land/std@0.201.0/fs/exists.ts";
+import { isSemVer } from "https://deno.land/std@0.201.0/semver/is_semver.ts";
+import { tryParse } from "https://deno.land/std@0.201.0/semver/try_parse.ts";
 
 const defaultVersionFile = ["version.ts", "src/version.ts"];
 

@@ -1,5 +1,5 @@
-import { exists } from "https://deno.land/std@0.199.0/fs/exists.ts";
-import { join } from "https://deno.land/std@0.199.0/path/posix.ts";
+import { exists } from "https://deno.land/std@0.201.0/fs/exists.ts";
+import { join } from "https://deno.land/std@0.201.0/path/posix.ts";
 
 /**
  * windows path separator
