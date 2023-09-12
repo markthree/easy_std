@@ -44,7 +44,7 @@ export function useOnce<T extends AnyFunction>(fn: T) {
   ): ReturnType<T> {
     if (!resolved) {
       resolved = true;
-      return result = fn.call(this, rest);
+      return result = fn.apply(this, rest);
     }
 
     return result as ReturnType<T>;
