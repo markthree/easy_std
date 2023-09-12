@@ -2,7 +2,11 @@
 import { findFile } from "../src/fs.ts";
 import { execa } from "../src/process.ts";
 import { exists } from "https://deno.land/std@0.201.0/fs/exists.ts";
-import { isSemVer } from "https://deno.land/std@0.201.0/semver/is_semver.ts";
+import {
+  compare,
+  isSemVer,
+  parse,
+} from "https://deno.land/std@0.201.0/semver/mod.ts";
 import { tryParse } from "https://deno.land/std@0.201.0/semver/try_parse.ts";
 
 const defaultVersionFile = ["version.ts", "src/version.ts"];
@@ -43,6 +47,12 @@ const newVersion = prompt(
 if (!newVersion || !isSemVer(tryParse(newVersion))) {
   throw new Deno.errors.InvalidData(
     "😥 Please enter the standard SemVer version number",
+  );
+}
+
+if (compare(parse(newVersion), parse(version)) !== 1) {
+  throw new Deno.errors.InvalidData(
+    `😥 The new version of the input must be greater than ${version}`,
   );
 }
 
