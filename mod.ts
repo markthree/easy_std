@@ -1,4 +1,5 @@
 export * from "./src/fn.ts";
+export * from "./src/os.ts";
 export * from "./src/fs.ts";
 export * from "./src/type.ts";
 export * from "./src/path.ts";
