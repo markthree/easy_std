@@ -1,5 +1,7 @@
 import { exists } from "https://deno.land/std@0.208.0/fs/exists.ts";
 import { join } from "https://deno.land/std@0.208.0/path/posix/mod.ts";
+import { dirname } from "https://deno.land/std@0.208.0/path/posix/dirname.ts";
+import { fromFileUrl } from "https://deno.land/std@0.208.0/path/posix/from_file_url.ts";
 
 /**
  * windows path separator
@@ -65,4 +67,22 @@ export async function findUp(name: string, root = Deno.cwd()) {
     }
   }
   throw new Deno.errors.NotFound(`${name} -> findUp`);
+}
+
+/**
+ * __dirname
+ * @param url import.meta.url
+ * @returns
+ */
+export function _dirname(url: string) {
+  return dirname(fromFileUrl(url));
+}
+
+/**
+ * __filename
+ * @param url import.meta.url
+ * @returns
+ */
+export function _filename(url: string) {
+  return fromFileUrl(url);
 }
