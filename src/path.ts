@@ -1,7 +1,7 @@
-import { exists } from "https://deno.land/std@0.208.0/fs/exists.ts";
-import { join } from "https://deno.land/std@0.208.0/path/posix/mod.ts";
-import { dirname } from "https://deno.land/std@0.208.0/path/posix/dirname.ts";
-import { fromFileUrl } from "https://deno.land/std@0.208.0/path/posix/from_file_url.ts";
+import { exists } from "https://deno.land/std@0.209.0/fs/exists.ts";
+import { join } from "https://deno.land/std@0.209.0/path/posix/mod.ts";
+import { dirname } from "https://deno.land/std@0.209.0/path/posix/dirname.ts";
+import { fromFileUrl } from "https://deno.land/std@0.209.0/path/posix/from_file_url.ts";
 
 /**
  * windows path separator
