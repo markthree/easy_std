@@ -27,6 +27,8 @@ import {
 export async function execa(cmd: string[], options: Deno.CommandOptions = {}) {
   const command = await which(cmd.shift()!);
 
+  const { promise, resolve, reject } = Promise.withResolvers<Deno.CommandStatus>()
+
   const commander = new Deno.Command(command!, {
     args: [...cmd],
     stdin: "inherit",
@@ -38,10 +40,16 @@ export async function execa(cmd: string[], options: Deno.CommandOptions = {}) {
   const process = commander.spawn();
 
   const stopShutdown = gracefulShutdown(() => {
-    process.kill();
+    try {
+      process.kill();
+    } catch (error) {
+      reject(error)
+    }
   });
 
-  return process.status.finally(stopShutdown);
+  process.status.then(resolve).catch(reject).finally(stopShutdown);
+
+  return promise
 }
 
 export let gracefulShutdownCounter = 0;
