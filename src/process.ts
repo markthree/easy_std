@@ -25,11 +25,25 @@ import {
  * ```
  */
 export async function execa(cmd: string[], options: Deno.CommandOptions = {}) {
-  const command = await which(cmd.shift()!);
+  if (cmd.length === 0) {
+    throw new Error(`command is required`);
+  }
 
-  const { promise, resolve, reject } = Promise.withResolvers<Deno.CommandStatus>()
+  const orginCommand = cmd.shift()!;
 
-  const commander = new Deno.Command(command!, {
+  const command = await which(orginCommand);
+
+  if (!command) {
+    throw new Error(
+      `${orginCommand} not found，Please ensure that it has been installed`,
+    );
+  }
+
+  const { promise, resolve, reject } = Promise.withResolvers<
+    Deno.CommandStatus
+  >();
+
+  const commander = new Deno.Command(command, {
     args: [...cmd],
     stdin: "inherit",
     stderr: "inherit",
@@ -43,13 +57,13 @@ export async function execa(cmd: string[], options: Deno.CommandOptions = {}) {
     try {
       process.kill();
     } catch (error) {
-      reject(error)
+      reject(error);
     }
   });
 
   process.status.then(resolve).catch(reject).finally(stopShutdown);
 
-  return promise
+  return promise;
 }
 
 export let gracefulShutdownCounter = 0;
