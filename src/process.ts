@@ -94,7 +94,13 @@ export function gracefulShutdown(
     });
   });
 
-  const stopSignalListeners = SIGNALS.map((SIGNAL) => {
+  const stopSignalListeners = SIGNALS.filter((SIGNAL) => {
+    if (SIGNAL.type === "SIGBREAK") {
+      // Linux does not support SIGBREAK
+      return Deno.build.os === "windows";
+    }
+    return true;
+  }).map((SIGNAL) => {
     return useSignalListener(
       SIGNAL.type,
       async function () {
