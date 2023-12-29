@@ -8,7 +8,7 @@ import { exists } from "https://deno.land/std@0.209.0/fs/exists.ts";
  * @returns
  * @example
  * ```ts
- * import { findFile } from "https://deno.land/x/easy_std@version/fs.ts";
+ * import { findFile } from "https://deno.land/x/easy_std@version/src/fs.ts";
  *
  * await findFile(['file1.txt', 'file2.txt']) // Randomly return the one that exists, or report an error if all of them do not exist
  * ```

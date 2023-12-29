@@ -29,7 +29,7 @@ export type SIGNAL_TYPE = (typeof SIGNALS)[number]["type"];
  * @returns
  * @example
  * ```ts
- * import { useEventListener } from "https://deno.land/x/easy_std@version/listener.ts";
+ * import { useEventListener } from "https://deno.land/x/easy_std@version/src/listener.ts";
  *
  * const stop = useEventListener('unload', () => {})
  *
@@ -52,7 +52,7 @@ export function useEventListener(...args: Parameters<typeof addEventListener>) {
  * @returns
  * @example
  * ```ts
- * import { useSignalListener } from "https://deno.land/x/easy_std@version/listener.ts";
+ * import { useSignalListener } from "https://deno.land/x/easy_std@version/src/listener.ts";
  *
  * const stop = useSignalListener('SIGINT', () => {})
  *

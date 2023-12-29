@@ -6,7 +6,7 @@ import { AnyFunction } from "./type.ts";
  * @returns
  * @example
  * ```ts
- * import { invoke } from "https://deno.land/x/easy_std@version/fn.ts"
+ * import { invoke } from "https://deno.land/x/easy_std@version/src/fn.ts"
  *
  * const fns = [() => 1, () => 2]
  *
@@ -23,7 +23,7 @@ export function invoke<T>(fn: () => T): T {
  * @returns
  * @example
  * ```ts
- * import { useOnce } from "https://deno.land/x/easy_std@version/fn.ts"
+ * import { useOnce } from "https://deno.land/x/easy_std@version/src/fn.ts"
  *
  * let foo = 0
  *
@@ -57,7 +57,7 @@ export function useOnce<T extends AnyFunction>(fn: T) {
  * @returns
  * @example
  * ```ts
- * import { useCount } from "https://deno.land/x/easy_std@version/fn.ts"
+ * import { useCount } from "https://deno.land/x/easy_std@version/src/fn.ts"
  *
  * const count = useCount()
  *

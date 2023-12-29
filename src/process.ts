@@ -19,7 +19,7 @@ import {
  * @returns
  * @example
  * ```ts
- * import { execa } from "https://deno.land/x/easy_std@version/process.ts";
+ * import { execa } from "https://deno.land/x/easy_std@version/src/process.ts";
  *
  * await execa(['npm', 'install', 'koa']) // Safe invocation of child processes
  * ```
@@ -74,7 +74,7 @@ export let gracefulShutdownCounter = 0;
  * @returns
  * @example
  * ```ts
- * import { gracefulShutdown } from "https://deno.land/x/easy_std@version/process.ts";
+ * import { gracefulShutdown } from "https://deno.land/x/easy_std@version/src/process.ts";
  *
  * gracefulShutdown(() => console.log("good bye")) // When the process exits, it prints
  * ```
@@ -128,6 +128,12 @@ export function gracefulShutdown(
  * requires the `--allow-run` and `--allow-env` flag.
  * @param files
  * @returns
+ * @example
+ * ```ts
+ * import { denoFmt } from "https://deno.land/x/easy_std@version/src/process.ts";
+ *
+ * denoFmt(['foo.ts'])
+ * ```
  */
 export function denoFmt(files: string[]) {
   const args = ["deno", "fmt"];

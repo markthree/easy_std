@@ -4,7 +4,7 @@
  * @returns
  * @example
  * ```ts
- * import { sum } from "https://deno.land/x/easy_std@version/collections.ts"
+ * import { sum } from "https://deno.land/x/easy_std@version/src/collections.ts"
  *
  * const total = sum([1, 2, 3]) // 6
  * ```

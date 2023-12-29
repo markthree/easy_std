@@ -14,7 +14,7 @@ export const WINDOWS_SEP = "\\";
  * @returns
  * @example
  * ```ts
- * import { slash } from "https://deno.land/x/easy_std@version/path.ts";
+ * import { slash } from "https://deno.land/x/easy_std@version/src/path.ts";
  *
  * slash("D:\\foo\\bar") // D:/foo/bar
  * ```
@@ -29,7 +29,7 @@ export function slash(path: string) {
  * @returns
  * @example
  * ```ts
- * import { createUpBases } from "https://deno.land/x/easy_std@version/path.ts";
+ * import { createUpBases } from "https://deno.land/x/easy_std@version/src/path.ts";
  *
  * createUpBases("D:/foo/bar") // ["D:", "D:/foo", "D:/foo/bar"]
  * ```
@@ -53,7 +53,7 @@ export function createUpBases(root: string = Deno.cwd()) {
  * @returns
  * @example
  * ```ts
- * import { findUp } from "https://deno.land/x/easy_std@version/path.ts";
+ * import { findUp } from "https://deno.land/x/easy_std@version/src/path.ts";
  *
  * findUp("bar") // Returns the possible paths from the root directory upwards
  * ```
@@ -73,6 +73,12 @@ export async function findUp(name: string, root = Deno.cwd()) {
  * __dirname
  * @param url import.meta.url
  * @returns
+ * @example
+ * ```ts
+ * import { _dirname } from "https://deno.land/x/easy_std@version/src/path.ts";
+ *
+ * _dirname(import.meta.url)
+ * ```
  */
 export function _dirname(url: string) {
   return dirname(fromFileUrl(url));
@@ -82,6 +88,12 @@ export function _dirname(url: string) {
  * __filename
  * @param url import.meta.url
  * @returns
+ * @example
+ * ```ts
+ * import { _filename } from "https://deno.land/x/easy_std@version/src/path.ts";
+ *
+ * _filename(import.meta.url)
+ * ```
  */
 export function _filename(url: string) {
   return fromFileUrl(url);
