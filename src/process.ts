@@ -9,6 +9,7 @@ import {
   useEventListener,
   useSignalListener,
 } from "./listener.ts";
+import { withResolvers } from "./promise.ts";
 
 /**
  * Safe execution of sub-processes
@@ -39,9 +40,7 @@ export async function execa(cmd: string[], options: Deno.CommandOptions = {}) {
     );
   }
 
-  const { promise, resolve, reject } = Promise.withResolvers<
-    Deno.CommandStatus
-  >();
+  const { promise, resolve, reject } = withResolvers<Deno.CommandStatus>();
 
   const commander = new Deno.Command(command, {
     args: [...cmd],

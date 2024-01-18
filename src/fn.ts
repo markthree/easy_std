@@ -77,3 +77,15 @@ export function useCount(count = 0) {
     return count++;
   };
 }
+
+/**
+ * No operation
+ * @example
+ * ```ts
+ * import { noop } from "https://deno.land/x/easy_std@version/src/fn.ts"
+ *
+ * noop()
+ * ```
+ */
+export function noop() {
+}
