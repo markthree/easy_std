@@ -79,7 +79,7 @@ export let gracefulShutdownCounter = 0;
  * ```
  */
 export function gracefulShutdown(
-  shutdown: (type: EVENT_TYPE | SIGNAL_TYPE) => void,
+  shutdown: (type: EVENT_TYPE | SIGNAL_TYPE, evt: Event | null) => void,
 ) {
   const stopEventListners = EVENTS.map((type) => {
     return useEventListener(type, async function (evt: Event) {
@@ -88,7 +88,7 @@ export function gracefulShutdown(
       if (evt instanceof Event && evt?.preventDefault) {
         evt.preventDefault();
       }
-      await shutdown(type);
+      await shutdown(type, evt);
       gracefulShutdownCounter--;
     });
   });
@@ -105,7 +105,7 @@ export function gracefulShutdown(
       async function () {
         stop();
         gracefulShutdownCounter++;
-        await shutdown(SIGNAL.type);
+        await shutdown(SIGNAL.type, null);
         gracefulShutdownCounter--;
         if (gracefulShutdownCounter === 0) {
           Deno.exit(SIGNAL.code);
@@ -140,4 +140,7 @@ export function denoFmt(files: string[]) {
     args.push(...files);
   }
   return execa(args);
+}
+
+export function catchError() {
 }
