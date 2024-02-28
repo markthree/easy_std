@@ -36,7 +36,9 @@ export type SIGNAL_TYPE = (typeof SIGNALS)[number]["type"];
  * stop() // remove listener
  * ```
  */
-export function useEventListener(...args: Parameters<typeof addEventListener>) {
+export function useEventListener(
+  ...args: Parameters<typeof addEventListener>
+): () => void {
   const [type, listener, options] = args;
   globalThis.addEventListener(type, listener, options);
 
@@ -59,7 +61,10 @@ export function useEventListener(...args: Parameters<typeof addEventListener>) {
  * stop() // remove listener
  * ```
  */
-export function useSignalListener(signal: Deno.Signal, handler: () => void) {
+export function useSignalListener(
+  signal: Deno.Signal,
+  handler: () => void,
+): () => void {
   Deno.addSignalListener(signal, handler);
   return function stop() {
     Deno.removeSignalListener(signal, handler);

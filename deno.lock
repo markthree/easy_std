@@ -1,5 +1,30 @@
 {
   "version": "3",
+  "packages": {
+    "specifiers": {
+      "jsr:@david/which@0.3.0": "jsr:@david/which@0.3.0",
+      "jsr:@std/assert@^0.212.0": "jsr:@std/assert@0.212.0",
+      "jsr:@std/fs@0.212.0": "jsr:@std/fs@0.212.0",
+      "jsr:@std/path@0.212.0": "jsr:@std/path@0.212.0"
+    },
+    "jsr": {
+      "@david/which@0.3.0": {
+        "integrity": "6bdb62c40ac90edcf328e854fa8103a8db21e7c326089cbe3c3a1cf7887d3204"
+      },
+      "@std/assert@0.212.0": {
+        "integrity": "e94912912e52b151d3a24022131bc59e39c2364cd7c68108e1d48d3479b2ee4d"
+      },
+      "@std/fs@0.212.0": {
+        "integrity": "4e263204b83b806f7930bbb5f91252d07a3bce10626fa36413022638314bc644"
+      },
+      "@std/path@0.212.0": {
+        "integrity": "e01f705bc3f4843b7f8484ac9b96d6744702769410a42c2fbb7073bd82b6340a",
+        "dependencies": [
+          "jsr:@std/assert@^0.212.0"
+        ]
+      }
+    }
+  },
   "remote": {
     "https://deno.land/std@0.192.0/fs/exists.ts": "29c26bca8584a22876be7cb8844f1b6c8fc35e9af514576b78f5c6884d7ed02d",
     "https://deno.land/std@0.192.0/semver/_shared.ts": "7101b4118e96b8c7b600d54a8455d93afd96eaf43a69a3bff34513890ac264ae",
@@ -442,5 +467,13 @@
     "https://deno.land/std@0.212.0/semver/try_parse.ts": "a2639ec588c374331d5f655bfbdf8d5a2f2cc704c8b56ac94cd077944de150c7",
     "https://deno.land/std@0.212.0/semver/types.ts": "bcc7dbd6c96110db5eac98c56c7d57b6ee9b9e929779467cbc24f934632e9feb",
     "https://deno.land/x/which@0.3.0/mod.ts": "3e10d07953c14e4ddc809742a3447cef14202cdfe9be6678a1dfc8769c4487e6"
+  },
+  "workspace": {
+    "dependencies": [
+      "jsr:@david/which@0.3.0",
+      "jsr:@std/fs@0.212.0",
+      "jsr:@std/path@0.212.0",
+      "jsr:@std/semver@0.212.0"
+    ]
   }
 }

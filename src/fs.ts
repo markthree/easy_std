@@ -1,4 +1,4 @@
-import { exists } from "https://deno.land/std@0.212.0/fs/exists.ts";
+import { exists } from "@std/fs/exists";
 
 /**
  * Find possible files
@@ -13,7 +13,7 @@ import { exists } from "https://deno.land/std@0.212.0/fs/exists.ts";
  * await findFile(['file1.txt', 'file2.txt']) // Randomly return the one that exists, or report an error if all of them do not exist
  * ```
  */
-export function findFile(paths: string[]) {
+export function findFile(paths: string[]): Promise<string> {
   return Promise.any(paths.map(async (p) => {
     if (await exists(p, { isFile: true })) {
       return p;

@@ -1,7 +1,7 @@
-import { exists } from "https://deno.land/std@0.212.0/fs/exists.ts";
-import { join } from "https://deno.land/std@0.212.0/path/join.ts";
-import { dirname } from "https://deno.land/std@0.212.0/path/dirname.ts";
-import { fromFileUrl } from "https://deno.land/std@0.212.0/path/from_file_url.ts";
+import { exists } from "@std/fs/exists";
+import { join } from "@std/path/join";
+import { dirname } from "@std/path/dirname";
+import { fromFileUrl } from "@std/path/from_file_url";
 
 /**
  * windows path separator
@@ -19,7 +19,7 @@ export const WINDOWS_SEP = "\\";
  * slash("D:\\foo\\bar") // D:/foo/bar
  * ```
  */
-export function slash(path: string) {
+export function slash(path: string): string {
   return path.replaceAll(WINDOWS_SEP, "/");
 }
 
@@ -34,7 +34,7 @@ export function slash(path: string) {
  * createUpBases("D:/foo/bar") // ["D:", "D:/foo", "D:/foo/bar"]
  * ```
  */
-export function createUpBases(root: string = Deno.cwd()) {
+export function createUpBases(root: string = Deno.cwd()): string[] {
   const base = slash(root);
   return base.split("/").reduceRight((bases: string[], b) => {
     const lastBase = bases.at(-1);
@@ -58,7 +58,10 @@ export function createUpBases(root: string = Deno.cwd()) {
  * findUp("bar") // Returns the possible paths from the root directory upwards
  * ```
  */
-export async function findUp(name: string, root = Deno.cwd()) {
+export async function findUp(
+  name: string,
+  root: string = Deno.cwd(),
+): Promise<string> {
   const bases = createUpBases(root);
   for (const base of bases) {
     const path = join(base, name);
@@ -80,8 +83,8 @@ export async function findUp(name: string, root = Deno.cwd()) {
  * _dirname(import.meta.url)
  * ```
  */
-export function _dirname(url: string) {
-  return slash(dirname(fromFileUrl(url)))
+export function _dirname(url: string): string {
+  return slash(dirname(fromFileUrl(url)));
 }
 
 /**
@@ -95,6 +98,6 @@ export function _dirname(url: string) {
  * _filename(import.meta.url)
  * ```
  */
-export function _filename(url: string) {
-  return slash(fromFileUrl(url))
+export function _filename(url: string): string {
+  return slash(fromFileUrl(url));
 }

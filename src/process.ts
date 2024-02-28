@@ -1,4 +1,4 @@
-import { which } from "https://deno.land/x/which@0.3.0/mod.ts";
+import { which } from "@david/which";
 
 import { invoke } from "./fn.ts";
 import {
@@ -25,7 +25,10 @@ import { withResolvers } from "./promise.ts";
  * await execa(['npm', 'install', 'koa']) // Safe invocation of child processes
  * ```
  */
-export async function execa(cmd: string[], options: Deno.CommandOptions = {}) {
+export async function execa(
+  cmd: string[],
+  options: Deno.CommandOptions = {},
+): Promise<Deno.CommandStatus> {
   if (cmd.length === 0) {
     throw new Error(`command is required`);
   }
@@ -79,8 +82,11 @@ export let gracefulShutdownCounter = 0;
  * ```
  */
 export function gracefulShutdown(
-  shutdown: (type: EVENT_TYPE | SIGNAL_TYPE, evt: Event | null) => void,
-) {
+  shutdown: (
+    type: EVENT_TYPE | SIGNAL_TYPE,
+    evt: Event | null,
+  ) => void | Promise<void>,
+): () => void {
   const stopEventListners = EVENTS.map((type) => {
     return useEventListener(type, async function (evt: Event) {
       stop();
@@ -134,7 +140,7 @@ export function gracefulShutdown(
  * denoFmt(['foo.ts'])
  * ```
  */
-export function denoFmt(files: string[]) {
+export function denoFmt(files: string[]): Promise<Deno.CommandStatus> {
   const args = ["deno", "fmt"];
   if (files?.length > 0) {
     args.push(...files);

@@ -6,11 +6,15 @@ import { noop } from "./fn.ts";
  * @example
  * ```ts
  * import { withResolvers } from "https://deno.land/x/easy_std@version/src/withResolvers.ts"
- * 
+ *
  * const { resolve, reject, promise } = withResolvers()
  * ```
  */
-export function withResolvers<T>() {
+export function withResolvers<T>(): {
+  promise: Promise<T>;
+  resolve: (value: T | PromiseLike<T>) => void;
+  reject: (reason?: any) => void;
+} {
   if (Promise.withResolvers) {
     return Promise.withResolvers<T>();
   }

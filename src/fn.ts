@@ -35,7 +35,9 @@ export function invoke<T>(fn: () => T): T {
  * foo // 1
  * ```
  */
-export function useOnce<T extends AnyFunction>(fn: T) {
+export function useOnce<T extends AnyFunction>(
+  fn: T,
+): (this: ThisType<T>, ...rest: Parameters<T>) => ReturnType<T> {
   let resolved = false;
   let result: unknown;
   return function once(
@@ -68,7 +70,7 @@ export function useOnce<T extends AnyFunction>(fn: T) {
  * count(100) // 100
  * ```
  */
-export function useCount(count = 0) {
+export function useCount(count = 0): (newCount?: number) => number {
   return function (newCount?: number) {
     if (newCount !== undefined) {
       count = newCount;

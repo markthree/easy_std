@@ -9,6 +9,6 @@
  * const total = sum([1, 2, 3]) // 6
  * ```
  */
-export function sum(ns: number[]) {
+export function sum(ns: number[]): number {
   return ns.reduce((l, r) => l + r, 0);
 }

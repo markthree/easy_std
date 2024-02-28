@@ -7,6 +7,6 @@
  * cpuLength()
  * ```
  */
-export function cpuLength() {
+export function cpuLength(): number {
   return navigator.hardwareConcurrency;
 }
